@@ -1,38 +1,8 @@
-// script.js
 document.addEventListener('DOMContentLoaded', function() {
-    // Mobile menu toggle
-    const burgerMenu = document.getElementById('burgerMenu');
-    const closeMenu = document.getElementById('closeMenu');
-    const mobileMenu = document.getElementById('mobileMenu');
-    
-    burgerMenu.addEventListener('click', () => {
-        mobileMenu.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    });
-    
-    closeMenu.addEventListener('click', () => {
-        mobileMenu.classList.remove('active');
-        document.body.style.overflow = '';
-    });
-    
-    // Close mobile menu when clicking outside
-    mobileMenu.addEventListener('click', (e) => {
-        if (e.target === mobileMenu) {
-            mobileMenu.classList.remove('active');
-            document.body.style.overflow = '';
-        }
-    });
-    
-    // Smooth scrolling for anchor links
+    // Smooth scrolling for navigation links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             e.preventDefault();
-            
-            // Close mobile menu if open
-            if (mobileMenu.classList.contains('active')) {
-                mobileMenu.classList.remove('active');
-                document.body.style.overflow = '';
-            }
             
             const targetId = this.getAttribute('href');
             const targetElement = document.querySelector(targetId);
@@ -46,32 +16,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Search functionality
-    const searchToggle = document.getElementById('searchToggle');
-    const searchClose = document.getElementById('searchClose');
-    const searchInput = document.getElementById('searchInput');
-    
-    searchToggle.addEventListener('click', () => {
-        searchInput.classList.add('active');
-        searchInput.querySelector('input').focus();
-    });
-    
-    searchClose.addEventListener('click', () => {
-        searchInput.classList.remove('active');
-    });
-    
-    // Close search when clicking outside
-    document.addEventListener('click', (e) => {
-        if (!searchInput.contains(e.target) && e.target !== searchToggle) {
-            searchInput.classList.remove('active');
-        }
-    });
-    
-    // Highlight active navigation on scroll
+    // Highlight active navigation item on scroll
     const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.nav-list a, .mobile-nav a');
+    const navLinks = document.querySelectorAll('.nav-list a');
     
-    window.addEventListener('scroll', () => {
+    window.addEventListener('scroll', function() {
         let current = '';
         
         sections.forEach(section => {
@@ -92,4 +41,9 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+    
+    // Initialize first navigation item as active
+    if (navLinks.length > 0) {
+        navLinks[0].classList.add('active');
+    }
 });
